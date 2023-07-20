@@ -1,0 +1,116 @@
+/* homepage.css */
+
+/* Header */
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.hero {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.hero h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #666;
+}
+
+.hero .btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+/* Featured Books Section */
+.featured-books {
+  background-color: #fff;
+  padding: 30px;
+}
+
+.featured-books h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book-item {
+  text-align: center;
+  margin: 20px;
+}
+
+.book-item img {
+  max-width: 200px;
+}
+
+.book-item h3 {
+  font-size: 20px;
+  color: #333;
+  margin-top: 10px;
+}
+
+.book-item p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Popular Categories Section */
+.popular-categories {
+  background-color: #f2f2f2;
+  padding: 30px;
+}
+
+.popular-categories h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.category-list {
+  display: flex;
+  justify-content: center;
+}
+
+.category-item {
+  text-align: center;
+  margin: 20px;
+}
+
+.category-item img {
+  max-width: 150px;
+}
+
+.category-item h3 {
+  font-size: 18px;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+footer p {
+  font-size: 14px;
+}
+

@@ -37,7 +37,10 @@ public class BookController {
     public String showHomePage() {
         return "homepage"; // Return the name of the Thymeleaf template for the homepage
     }
-
+//    @GetMapping("/")
+//    public String showAllBooksPage() {
+//        return "bookList"; // Return the name of the Thymeleaf template for the homepage
+//    }
     // Add more methods for handling book-related requests (e.g., add, update, delete)
 
 }
