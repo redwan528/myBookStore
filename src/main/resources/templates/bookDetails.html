@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Bookstore - Book Details</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<div class="navigation">
+    <!-- Navigation links here -->
+</div>
+<div class="content">
+    <h1>Book Details</h1>
+    <div th:if="${book}">
+        <p>Title: <span th:text="${book.title}"></span></p>
+        <p>Author: <span th:text="${book.author}"></span></p>
+        <p>Price: <span th:text="${book.price}"></span></p>
+        <!-- Add more book details here as needed -->
+    </div>
+    <div th:unless="${book}">
+        <p>Book not found.</p>
+    </div>
+</div>
+<script src="/js/scripts.js"></script>
+</body>
+</html>

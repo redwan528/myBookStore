@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Bookstore - Book List</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<div class="navigation">
+    <!-- Navigation links here -->
+</div>
+<div class="content">
+    <h1>Book List</h1>
+    <ul>
+        <li th:each="book : ${books}">
+            <span th:text="${book.title}"></span> by <span th:text="${book.author}"></span>
+            - Price: <span th:text="${book.price}"></span>
+        </li>
+    </ul>
+</div>
+<script src="/js/scripts.js"></script>
+</body>
+</html>
