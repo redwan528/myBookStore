@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Checkout</title>
+</head>
+<body>
+<h1>Checkout</h1>
+<div th:if="${cart}">
+  <ul>
+    <li th:each="book : ${cart.books}">
+      <span th:text="${book.title}"></span> - <span th:text="${book.author}"></span>
+    </li>
+  </ul>
+  <p>Total: $<span th:text="${#numbers.formatDecimal(cart.totalAmount, 2)}"></span></p>
+  <!-- Add more HTML for checkout form and payment options if needed -->
+</div>
+<div th:unless="${cart}">
+  <p>Your cart is empty. Please add some books before proceeding to checkout.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Cart</title>-->
+<!--    &lt;!&ndash;    <link rel="stylesheet" type="text/css" href="../static/cart.css">&ndash;&gt;-->
+<!--    <link href="../static/css/cart.css" rel="stylesheet" />-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h1>Your Cart</h1>-->
+
+<!--<div th:if="${cart}">-->
+<!--    <table class="cart-table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Title</th>-->
+<!--            <th>Author</th>-->
+<!--            <th>Price</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="book : ${cart.books}">-->
+<!--            <td th:text="${book.title}">afasdfsdfsf</td>-->
+<!--            <td th:text="${book.author}"></td>-->
+<!--            <td th:text="${book.price}"></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--<div th:unless="${cart}">-->
+<!--    <p>Your cart is empty.</p>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+<!--    <link rel="stylesheet" href="/static/css/cart.css">-->
+    <style>
+        /* cart.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.cart-container {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+.cart-total {
+    margin-top: 20px;
+    text-align: right;
+}
+
+    </style>
+</head>
+<body>
+<h1>Your Cart</h1>
+<div class="cart-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Sample cart items (replace this with your actual cart items) -->
+        <tr>
+            <td>The Great Gatsby</td>
+            <td>F. Scott Fitzgerald</td>
+            <td>$15.99</td>
+        </tr>
+        <tr>
+            <td>To Kill a Mockingbird</td>
+            <td>Harper Lee</td>
+            <td>$12.49</td>
+        </tr>
+        <!-- Add more rows for each cart item as needed -->
+        </tbody>
+    </table>
+    <div class="cart-total">
+        <p>Total: $28.48</p>
+        <!-- Add checkout options or other cart details here -->
+    </div>
+</div>
+</body>
+</html>

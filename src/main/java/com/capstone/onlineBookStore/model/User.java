@@ -14,5 +14,8 @@ public class User {
     private String username;
     private String password;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
+
     // Getters and setters, constructors, and other methods as needed
 }
