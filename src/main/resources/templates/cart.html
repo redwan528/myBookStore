@@ -1,116 +1,98 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Cart</title>-->
-<!--    &lt;!&ndash;    <link rel="stylesheet" type="text/css" href="../static/cart.css">&ndash;&gt;-->
-<!--    <link href="../static/css/cart.css" rel="stylesheet" />-->
-<!--</head>-->
-<!--<body>-->
 
-<!--<h1>Your Cart</h1>-->
-
-<!--<div th:if="${cart}">-->
-<!--    <table class="cart-table">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>Title</th>-->
-<!--            <th>Author</th>-->
-<!--            <th>Price</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="book : ${cart.books}">-->
-<!--            <td th:text="${book.title}">afasdfsdfsf</td>-->
-<!--            <td th:text="${book.author}"></td>-->
-<!--            <td th:text="${book.price}"></td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
-
-<!--<div th:unless="${cart}">-->
-<!--    <p>Your cart is empty.</p>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Your Cart</title>
-<!--    <link rel="stylesheet" href="/static/css/cart.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <style>
-        /* cart.css */
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
+        /* Custom CSS for the cart */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
 
-h1 {
-    text-align: center;
-}
+        h1 {
+            text-align: center;
+        }
 
-.cart-container {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
 
-table, th, td {
-    border: 1px solid #ccc;
-}
+        thead {
+            background-color: #f2f2f2;
+        }
 
-th, td {
-    padding: 8px;
-    text-align: left;
-}
-
-thead {
-    background-color: #f2f2f2;
-}
-
-.cart-total {
-    margin-top: 20px;
-    text-align: right;
-}
-
+        .cart-total {
+            margin-top: 20px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-<h1>Your Cart</h1>
-<div class="cart-container">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">Insight</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="all-books">All Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">My Bag</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a class="nav-link text-white" href="/cart">Login</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<h1></h1>
+<div class="container">
     <table>
         <thead>
         <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Price</th>
+            <th></th><!-- Empty column for delete button -->
         </tr>
         </thead>
         <tbody>
-        <!-- Sample cart items (replace this with your actual cart items) -->
-        <tr>
-            <td>The Great Gatsby</td>
-            <td>F. Scott Fitzgerald</td>
-            <td>$15.99</td>
+        <!-- Thymeleaf loop to display cart items from the database -->
+        <tr th:each="book : ${cartItems}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.price}"></td>
+            <td><a th:href="@{/cart/remove/{id}(id=${book.id})}">Remove</a></td><!-- Adjust the link for delete operation -->
         </tr>
-        <tr>
-            <td>To Kill a Mockingbird</td>
-            <td>Harper Lee</td>
-            <td>$12.49</td>
-        </tr>
-        <!-- Add more rows for each cart item as needed -->
         </tbody>
     </table>
     <div class="cart-total">
-        <p>Total: $28.48</p>
-        <!-- Add checkout options or other cart details here -->
+        <p>Total: $<span th:text="${totalPrice}"></span></p>
     </div>
 </div>
+<!-- Rest of the cart content goes here -->
+<!-- JavaScript and Bootstrap scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

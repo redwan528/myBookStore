@@ -19,9 +19,9 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Add some sample books to the database
-        Book book1 = new Book("Title 1", "Author 1", 19.99);
-        Book book2 = new Book("Title 2", "Author 2", 24.99);
-        Book book3 = new Book("Title 3", "Author 3", 14.99);
+        Book book1 = new Book("Harry Potter and the Half Blood Prince", "JK Rowling", 19.99);
+        Book book2 = new Book("Man's Search for Meaning", "Viktor Frankl", 24.99);
+        Book book3 = new Book("Laws of Power", "Robert Greene", 14.99);
 
         bookService.saveBook(book1);
         bookService.saveBook(book2);
