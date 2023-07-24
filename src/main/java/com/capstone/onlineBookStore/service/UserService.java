@@ -1,30 +1,37 @@
 package com.capstone.onlineBookStore.service;
 
+import com.capstone.onlineBookStore.dto.UserDto;
 import com.capstone.onlineBookStore.model.User;
 import com.capstone.onlineBookStore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
+//    private final UserRepository userRepository;
+//
+//    @Autowired
+//    public UserService(UserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
+//
+//
+//
+//    public void saveUser(User user) {
+//        userRepository.save(user);
+//    }
+//
+//    public User getUserById(Long id) {
+//        return userRepository.findById(id).orElse(null);
+//    }
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    void saveUser(UserDto userDto);
 
-    // Your service methods can now use the userRepository to interact with the database.
-    // For example:
+    User findByEmail(String email);
 
-    public void saveUser(User user) {
-        userRepository.save(user);
-    }
+    List<UserDto> findAllUsers();
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
-    }
-
-    // Add more service methods as needed.
 }
