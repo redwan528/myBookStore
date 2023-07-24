@@ -29,18 +29,19 @@ public class SpringSecurity {
         http/*.csrf().disable()*/
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login", "/logout", "/register", "/register/**").permitAll()
-                        .requestMatchers("/users").authenticated()
+                        .requestMatchers("/").authenticated()
                         .anyRequest().authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/users")
+                                .defaultSuccessUrl("/")
                                 .permitAll()
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
+                                .logoutSuccessUrl("/login")
                 );
         return http.build();
     }

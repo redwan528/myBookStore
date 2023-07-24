@@ -33,11 +33,22 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+//    @Override
+//    public void findUser(UserDto userDto){
+//        User user = new User();
+//        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
+//    }
+
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public String findName(String name){
+        User user = userRepository.findByEmail(name);
+        return user.getName();
+    }
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();

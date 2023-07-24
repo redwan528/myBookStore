@@ -1,5 +1,6 @@
 package com.capstone.onlineBookStore.service;
 
+import com.capstone.onlineBookStore.exception.BookNotFoundException;
 import com.capstone.onlineBookStore.model.Book;
 import com.capstone.onlineBookStore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,12 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Book getBookById(Long id) {
-        return bookRepository.findById(id).orElse(null);
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Book not found with id " + id));
     }
+//    public Book getBookById(Long id) {
+//        return bookRepository.findById(id).orElse(null);
+//    }
 
     @Override
     public Book saveBook(Book book) {

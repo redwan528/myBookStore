@@ -109,12 +109,16 @@
 //}
 package com.capstone.onlineBookStore.controller;
 
+import com.capstone.onlineBookStore.exception.BookNotFoundException;
 import com.capstone.onlineBookStore.model.Book;
 import com.capstone.onlineBookStore.service.BookService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -146,10 +150,10 @@ public class BookController {
         return "bookDetails"; // bookDetails.html is the Thymeleaf template to display book details
     }
 
-    @GetMapping("/")
-    public String showHomePage() {
-        return "homepage"; // Return the name of the Thymeleaf template for the homepage
-    }
+//    @GetMapping("/")
+//    public String showHomePage() {
+//        return "homepage"; // Return the name of the Thymeleaf template for the homepage
+//    }
 
     @GetMapping("/add-to-cart/{id}")
     public String addToCart(@PathVariable Long id) {
@@ -168,6 +172,11 @@ public class BookController {
         httpSession.setAttribute("cartItems", cartItems);
 
         return "redirect:/all-books"; // Redirect back to the all-books page after adding to cart
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<String> handleBookNotFound(BookNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
 
