@@ -72,8 +72,8 @@
             <td th:text="${book.author}"></td>
             <td th:text="${book.price}"></td>
             <td>
-<!--                <a th:href="@{/cart/add/{id}(id=${book.id})}" class="btn btn-primary">Add to Cart</a>-->
-<!--                <button type="button" class="btn btn-primary add-to-cart-btn" data-bookId="${book.id}">Add to Cart</button>-->
+                <!--                <a th:href="@{/cart/add/{id}(id=${book.id})}" class="btn btn-primary">Add to Cart</a>-->
+                <!--                <button type="button" class="btn btn-primary add-to-cart-btn" data-bookId="${book.id}">Add to Cart</button>-->
                 <button type="button" class="btn btn-primary add-to-cart-btn" th:attr="data-bookId=${book.id}">Add to Cart</button>
 
             </td><!-- Adjust the link for add to cart operation -->
@@ -88,24 +88,46 @@
 
 <script>
     $(document).ready(function() {
-    $('.add-to-cart-btn').click(function(e) {
-        e.preventDefault();
-        var bookId = $(this).data('bookId');
-        $.ajax({
-    type: 'POST',
-    url: '/' + [[${userId}]] + '/add/' + bookId,
-    success: function() {
-        alert('Book added to cart successfully!');
-    },
-    error: function() {
-        alert('Failed to add book to cart.');
-    }
-});
-
+        $('.add-to-cart-btn').click(function(e) {
+            e.preventDefault();
+            var bookId = $(this).data('bookid');
+            $.ajax({
+                type: 'POST',
+                url: '/add/' + bookId,
+                success: function() {
+                    alert('Book added to cart successfully!');
+                },
+                error: function() {
+                    alert('Failed to add book to cart.');
+                }
+            });
+        });
     });
-});
-
 </script>
+
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--    $('.add-to-cart-btn').click(function(e) {-->
+<!--        e.preventDefault();-->
+<!--        var bookId = $(this).data('bookId');-->
+<!--        $.ajax({-->
+<!--    type: 'POST',-->
+<!--    url: '/' + [[${userId}]] + '/add/' + bookId,-->
+<!--    success: function() {-->
+<!--        alert('Book added to cart successfully!');-->
+<!--    },-->
+<!--    error: function() {-->
+<!--        alert('Failed to add book to cart.');-->
+<!--    }-->
+<!--});-->
+
+<!--    });-->
+<!--});-->
+
+<!--</script>-->
+
+
+
 
 </body>
 </html>

@@ -46,29 +46,16 @@ public class CartController {
         return "cart"; // Return the name of the Thymeleaf template for displaying the cart
     }
 
-//    @PostMapping("/cart/add")
-//    public ResponseEntity<?> addToCart(@RequestParam Long bookId, HttpSession session) {
-//
-//        User currentUser = (User) session.getAttribute("currentUser");
-//        Book book = bookService.getBookById(bookId); // Get the book to add to the cart
-//
-//        cartService.addBookToCart(book, currentUser); // Add the book to the cart (you may need to implement this method in CartService)
-//        return new ResponseEntity<>("Book added to cart!", HttpStatus.OK);
-//    }
-//@PostMapping("/{userId}/add/{bookId}")
-//public ResponseEntity<Void> addBookToCart(@PathVariable Long userId, @PathVariable Long bookId) {
-////    User user = userService.findName(userId);
-//    Book book = bookService.getBookById(bookId);
-////    cartService.addBookToCart(book, user);
-//    return ResponseEntity.ok().build();
-//}
-
     @PostMapping("/add/{bookId}")
     public ResponseEntity<Void> addBookToCart(@PathVariable Long userId, @PathVariable Long bookId) {
-        User user = userService.getUserById(userId);  // Corrected from findName to getUserById
-//        Book book = bookService.getBookById(bookId);
-        cartService.addBookToCart(bookId, user);  // Add the book to the user's cart
-        return ResponseEntity.ok().build();
+        User user = userService.getUserById(userId);
+        Book book = bookService.getBookById(bookId);
+        if (user != null && book != null) {
+            cartService.addBookToCart(book, user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 

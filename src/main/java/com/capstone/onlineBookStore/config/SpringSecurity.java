@@ -28,8 +28,9 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http/*.csrf().disable()*/
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/logout", "/register", "/register/**").permitAll()
+                        .requestMatchers("/login", "/logout", "/register", "/register/**", "/add/{bookId}").permitAll()
                         .requestMatchers("/").authenticated()
+                        .requestMatchers("/add/{bookId}").authenticated()
                         .anyRequest().authenticated()
                 ).formLogin(
                         form -> form

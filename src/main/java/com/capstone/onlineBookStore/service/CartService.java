@@ -8,7 +8,7 @@ public interface CartService {
 //    Cart getUserCart();
     Cart findCartByUserId(Long currentUserId);
 
-    void addBookToCart(Long bookId, User user);
+    void addBookToCart(Book book, User user);
     void removeBookFromCart(Book book, User user);
     // Add more methods for cart-related operations if needed
 }
