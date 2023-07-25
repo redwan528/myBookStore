@@ -5,6 +5,7 @@ import com.capstone.onlineBookStore.model.User;
 
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -23,5 +24,7 @@ public interface UserService {
     List<UserDto> findAllUsers();
 
     User getUserById(Long userId);
+
+    User getUserByPrincipal(Principal principal);
 
 }

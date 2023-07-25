@@ -86,6 +86,26 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        $('.add-to-cart-btn').click(function(e) {-->
+<!--            e.preventDefault();-->
+<!--            var bookId = $(this).data('bookId');-->
+<!--            $.ajax({-->
+<!--                type: 'POST',-->
+<!--                url: 'cart/add-book/' + bookId,-->
+<!--                success: function() {-->
+<!--                    alert('Book added to cart successfully!');-->
+<!--                },-->
+<!--                error: function() {-->
+<!--                    alert('Failed to add book to cart.');-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+
 <script>
     $(document).ready(function() {
         $('.add-to-cart-btn').click(function(e) {
@@ -93,7 +113,7 @@
             var bookId = $(this).data('bookid');
             $.ajax({
                 type: 'POST',
-                url: '/add/' + bookId,
+                url: '/cart/add-book/' + bookId, // added leading slash
                 success: function() {
                     alert('Book added to cart successfully!');
                 },
@@ -104,27 +124,6 @@
         });
     });
 </script>
-
-<!--<script>-->
-<!--    $(document).ready(function() {-->
-<!--    $('.add-to-cart-btn').click(function(e) {-->
-<!--        e.preventDefault();-->
-<!--        var bookId = $(this).data('bookId');-->
-<!--        $.ajax({-->
-<!--    type: 'POST',-->
-<!--    url: '/' + [[${userId}]] + '/add/' + bookId,-->
-<!--    success: function() {-->
-<!--        alert('Book added to cart successfully!');-->
-<!--    },-->
-<!--    error: function() {-->
-<!--        alert('Failed to add book to cart.');-->
-<!--    }-->
-<!--});-->
-
-<!--    });-->
-<!--});-->
-
-<!--</script>-->
 
 
 

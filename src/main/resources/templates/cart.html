@@ -77,7 +77,7 @@
         </thead>
         <tbody>
         <!-- Thymeleaf loop to display cart items from the database -->
-        <tr th:each="book : ${cartItems}">
+        <tr th:each="book : ${cart.books}">
             <td th:text="${book.title}"></td>
             <td th:text="${book.author}"></td>
             <td th:text="${book.price}"></td>

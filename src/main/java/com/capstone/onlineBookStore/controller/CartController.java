@@ -3,6 +3,8 @@ package com.capstone.onlineBookStore.controller;
 import com.capstone.onlineBookStore.model.Book;
 import com.capstone.onlineBookStore.model.Cart;
 import com.capstone.onlineBookStore.model.User;
+import com.capstone.onlineBookStore.repository.BookRepository;
+import com.capstone.onlineBookStore.repository.CartRepository;
 import com.capstone.onlineBookStore.service.BookService;
 import com.capstone.onlineBookStore.service.CartService;
 import com.capstone.onlineBookStore.service.UserService;
@@ -15,8 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CartController {
@@ -27,36 +31,69 @@ public class CartController {
 
     private final UserService userService;
 
+    private final CartRepository cartRepository;
+    private final BookRepository bookRepository;
+
     @Autowired
-    public CartController(CartService cartService, BookService bookService, UserService userService) {
+    public CartController(CartService cartService, BookService bookService, UserService userService, CartRepository cartRepository, BookRepository bookRepository) {
         this.cartService = cartService;
         this.bookService = bookService;
         this.userService = userService;
-    }
+        this.cartRepository = cartRepository;
+        this.bookRepository = bookRepository;
 
+    }
 
 
     @GetMapping("/cart")
-    public String viewCart(Model model, HttpServletRequest request) {
-        HttpSession httpSession = request.getSession(false);
-        if (httpSession != null) {
-            Cart cart = (Cart) httpSession.getAttribute("cart");
-            model.addAttribute("cart", cart);
+    public String viewCart(Model model, Principal principal) {
+        System.out.println("IN CartController->viewCart()");
+
+        // Fetch the current user
+        User user = userService.getUserByPrincipal(principal);
+
+        // Find the user's cart
+        Cart cart = cartService.findCartByUserId(user.getId());
+
+        // If cart is null create a new Cart
+        if (cart == null) {
+            cart = new Cart();
+            cart.setUser(user);
+            cart = cartRepository.save(cart);
         }
-        return "cart"; // Return the name of the Thymeleaf template for displaying the cart
+
+        // Add the cart to the model
+        model.addAttribute("cart", cart);
+
+        return "cart";
     }
 
-    @PostMapping("/add/{bookId}")
-    public ResponseEntity<Void> addBookToCart(@PathVariable Long userId, @PathVariable Long bookId) {
-        User user = userService.getUserById(userId);
-        Book book = bookService.getBookById(bookId);
-        if (user != null && book != null) {
-            cartService.addBookToCart(book, user);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
+    //    @PostMapping("/cart/books/{bookId}")
+//    public ResponseEntity<Void> addBookToCart(@PathVariable Long userId, @PathVariable Long bookId) {
+//        User user = userService.getUserById(userId);
+//        Book book = bookService.getBookById(bookId);
+//        if (user != null && book != null) {
+//            cartService.addBookToCart(book, user);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
+@PostMapping("cart/add-book/{bookId}")
+public ResponseEntity<Void> addBookToCart(@PathVariable Long bookId, Principal principal) {
+    User user = userService.getUserByPrincipal(principal);
+    Book book = bookService.getBookById(bookId);
+    if (user != null && book != null) {
+        cartService.addBookToCart(book, user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+}
+
+
+
 
 
     // Method to remove a book from the cart

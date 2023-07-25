@@ -1,10 +1,7 @@
 package com.capstone.onlineBookStore.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -12,16 +9,20 @@ import lombok.*;
 //@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="books")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name="author")
     private String author;
 
+    @Column(name="price")
     private double price;
 
     public Book(String title, String author, double price) {

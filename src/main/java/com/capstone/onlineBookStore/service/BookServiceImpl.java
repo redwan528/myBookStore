@@ -25,8 +25,9 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Book getBookById(Long id) {
-        return bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException("Book not found with id " + id));
+//        return bookRepository.findById(id)
+//                .orElseThrow(() -> new BookNotFoundException("Book not found with id " + id));
+        return bookRepository.findById(id).orElseThrow();
     }
 //    public Book getBookById(Long id) {
 //        return bookRepository.findById(id).orElse(null);
@@ -38,7 +39,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public void deleteBook(Long id) {
+    public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
     }
 }

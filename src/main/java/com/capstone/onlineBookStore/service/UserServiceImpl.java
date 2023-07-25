@@ -8,6 +8,7 @@ import com.capstone.onlineBookStore.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,6 +84,13 @@ public class UserServiceImpl implements UserService {
         userDto.setEmail(user.getEmail());
         return userDto;
     }
+
+    public User getUserByPrincipal(Principal principal) {
+        String email = principal.getName();
+        return userRepository.findByEmail(email);
+    }
+
+
 
 
 }

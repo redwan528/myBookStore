@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.ArrayList;
+
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -42,13 +44,34 @@ public class CartServiceImpl implements CartService {
         return null; // Or handle the case when the user is not found.
     }
 
-    @Transactional
-    @Override
-    public void addBookToCart(Book book, User user) {
-        Cart cart = findCartByUserId(user.getId());
-        cart.getBooks().add(book);
-        cartRepository.save(cart);
+//    @Transactional
+//    @Override
+//    public void addBookToCart(Book book, User user) {
+//        Cart cart = findCartByUserId(user.getId());
+//        if (cart.getBooks() == null) {
+//            cart.setBooks(new ArrayList<>());
+//        }
+//        cart.getBooks().add(book);
+//        cartRepository.save(cart);
+//    }
+@Transactional
+@Override
+public void addBookToCart(Book book, User user) {
+    Cart cart = findCartByUserId(user.getId());
+    if (cart == null) {
+        // Handle the situation where no cart is found.
+        // This could involve creating a new cart, logging an error, etc.
+        cart = new Cart(); // create a new Cart or handle it as per your requirement.
+        cart.setUser(user);
     }
+    if (cart.getBooks() == null) {
+        cart.setBooks(new ArrayList<>());
+    }
+    cart.getBooks().add(book);
+    cartRepository.save(cart);
+}
+
+
 
     @Override
     public void removeBookFromCart(Book book, User user) {
