@@ -11,4 +11,8 @@ public interface CartService {
     void addBookToCart(Book book, User user);
     void removeBookFromCart(Book book, User user);
     // Add more methods for cart-related operations if needed
+
+//    Cart getCart();
+
+    double calculateTotal(Long currentUserId);
 }

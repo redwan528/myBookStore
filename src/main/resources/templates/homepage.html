@@ -7,9 +7,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" th:href="@{/homepage.css}">
   <style>
-    /* Your custom CSS goes here */
-    /* You can leave this empty if you want to use only Bootstrap styles */
-
      body {
       background-color: #f2f2f2;
     }
@@ -78,10 +75,9 @@
 </head>
 <body>
 
-<!-- my navbar code -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#">Insight</a>
+    <a class="navbar-brand text-white" href="/">Top Shelf Books</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -94,32 +90,12 @@
         <li class="nav-item">
           <a class="nav-link text-white" href="all-books">All Books</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="cart">My Bag</a>
-        </li>
-
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>-->
-<!--        </li>-->
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{/login}">Logout</a>
-        </li>
-<!--        <li class="nav-item" th:if="${!loggedIn}">-->
-<!--          <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item" th:if="${!loggedIn}">-->
-<!--          <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item" th:if="${loggedIn}">-->
-<!--          <a class="nav-link text-white" href="#">Logout</a>-->
-<!--        </li>-->
-
 
       </ul>
-      <div>
-        <a class="nav-link text-white" href="cart">My Cart
-          <img src="">
-        </a>
+      <div class="d-flex">
+        <a class="nav-link text-white" href="cart">My Cart <img src=""></a>
+        <a class="nav-link text-white me-3" href="/login">Logout</a>
+
       </div>
     </div>
   </div>
@@ -128,12 +104,12 @@
 <header class="container">
   <!-- Your hero section content goes here -->
   <div class="hero">
-    <h1>Welcome to Book World</h1>
+    <h1>Welcome to Top Shelf Books!</h1>
     <p th:text="${loggedInUsername}">User Name</p>
 
     <p>Discover your next great read</p>
 
-    <a href="/books" class="btn btn-primary">Explore Books</a>
+    <a href="/all-books" class="btn btn-primary">Explore Books</a>
   </div>
 </header>
 

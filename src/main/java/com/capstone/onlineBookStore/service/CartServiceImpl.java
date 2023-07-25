@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
 @Service
 public class CartServiceImpl implements CartService {
 
-
+//private Cart cart;
     private final CartRepository cartRepository;
     private final UserRepository userRepository; // Add UserRepository
 
@@ -44,16 +45,6 @@ public class CartServiceImpl implements CartService {
         return null; // Or handle the case when the user is not found.
     }
 
-//    @Transactional
-//    @Override
-//    public void addBookToCart(Book book, User user) {
-//        Cart cart = findCartByUserId(user.getId());
-//        if (cart.getBooks() == null) {
-//            cart.setBooks(new ArrayList<>());
-//        }
-//        cart.getBooks().add(book);
-//        cartRepository.save(cart);
-//    }
 @Transactional
 @Override
 public void addBookToCart(Book book, User user) {
@@ -79,4 +70,36 @@ public void addBookToCart(Book book, User user) {
         cart.getBooks().remove(book);
         cartRepository.save(cart);
     }
+
+//    @Override
+//    public double calculateTotal(Long currentUserId) {
+//        Cart cart = findCartByUserId(currentUserId);
+//        if (cart != null && cart.getBooks() != null) {
+//            return cart.getBooks().stream().mapToDouble(Book::getPrice).sum();
+//        }
+//        return 0.0;
+//    }
+@Override
+public double calculateTotal(Long userId) {
+//    Cart cart = findCartByUserId(userId);
+//    if (cart != null && cart.getBooks() != null) {
+//        return cart.getBooks().stream()
+//                .mapToDouble(Book::getPrice)
+//                .sum();
+//    }
+//    return 0;
+    Cart cart = findCartByUserId(userId);
+    double total = 0.0;
+    if (cart != null && cart.getBooks() != null) {
+        for (Book book : cart.getBooks()) {
+            total += book.getPrice();
+        }
+    }
+    DecimalFormat df = new DecimalFormat("#.##");
+    total = Double.valueOf(df.format(total));
+    return total;
+}
+
+
+
 }

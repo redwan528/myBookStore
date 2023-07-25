@@ -62,24 +62,14 @@ public class CartController {
             cart = cartRepository.save(cart);
         }
 
+        double total = cartService.calculateTotal(user.getId());
         // Add the cart to the model
         model.addAttribute("cart", cart);
+        model.addAttribute("totalPrice",total);
 
         return "cart";
     }
 
-
-    //    @PostMapping("/cart/books/{bookId}")
-//    public ResponseEntity<Void> addBookToCart(@PathVariable Long userId, @PathVariable Long bookId) {
-//        User user = userService.getUserById(userId);
-//        Book book = bookService.getBookById(bookId);
-//        if (user != null && book != null) {
-//            cartService.addBookToCart(book, user);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
 @PostMapping("cart/add-book/{bookId}")
 public ResponseEntity<Void> addBookToCart(@PathVariable Long bookId, Principal principal) {
     User user = userService.getUserByPrincipal(principal);
@@ -91,6 +81,20 @@ public ResponseEntity<Void> addBookToCart(@PathVariable Long bookId, Principal p
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
+
+    //@RequestMapping(value = "/cart", method = RequestMethod.GET)
+//    public String getCart(Model model) {
+//        Cart cart = cartService.getCart();  // Assuming getCart() returns a Cart object with a List of Books
+//        model.addAttribute("cart", cart);
+//
+//        double totalPrice = 0;
+//        for (Book book : cart.getBooks()) {
+//            totalPrice += book.getPrice();
+//        }
+//        model.addAttribute("totalPrice", totalPrice);
+//
+//        return "cart";  // Return the name of your Thymeleaf template (assumes "cart.html")
+//    }
 
 
 

@@ -1,16 +1,152 @@
 
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>All Books</title>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; my navbar code &ndash;&gt;-->
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-dark">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand text-white" href="/">Top Shelf Books</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"-->
+<!--                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active text-white" aria-current="page" href="/">Home</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link text-white" href="all-books">All Books</a>-->
+<!--                </li>-->
+
+<!--            </ul>-->
+<!--            <div class="d-flex">-->
+<!--                <a class="nav-link text-white" href="cart">My Cart <img src=""></a>-->
+<!--                <a class="nav-link text-white me-3" href="/login">Logout</a>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="container">-->
+<!--    <h1>All Books</h1>-->
+<!--    <table>-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Title</th>-->
+<!--            <th>Author</th>-->
+<!--            <th>Price</th>-->
+<!--            <th></th>&lt;!&ndash; Empty column for add to cart button &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        &lt;!&ndash; Thymeleaf loop to display all books from the database &ndash;&gt;-->
+<!--        <tr th:each="book : ${books}">-->
+<!--            <td th:text="${book.title}"></td>-->
+<!--            <td th:text="${book.author}"></td>-->
+<!--            <td th:text="${book.price}"></td>-->
+<!--            <td>-->
+<!--                &lt;!&ndash;                <a th:href="@{/cart/add/{id}(id=${book.id})}" class="btn btn-primary">Add to Cart</a>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <button type="button" class="btn btn-primary add-to-cart-btn" data-bookId="${book.id}">Add to Cart</button>&ndash;&gt;-->
+<!--                <button type="button" class="btn btn-primary add-to-cart-btn" th:attr="data-bookId=${book.id}">Add to Cart</button>-->
+
+<!--            </td>&lt;!&ndash; Adjust the link for add to cart operation &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"-->
+<!--        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"-->
+<!--        crossorigin="anonymous"></script>-->
+
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        $('.add-to-cart-btn').click(function(e) {-->
+<!--            e.preventDefault();-->
+<!--            var bookId = $(this).data('bookid');-->
+<!--            $.ajax({-->
+<!--                type: 'POST',-->
+<!--                url: '/cart/add-book/' + bookId, // added leading slash-->
+<!--                success: function() {-->
+<!--                    alert('Book added to cart successfully!');-->
+<!--                },-->
+<!--                error: function() {-->
+<!--                    alert('Failed to add book to cart.');-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+
+
+
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>All Books</title>
+    <title>All Books | Top Shelf Books</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .container h1 {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        .add-to-cart-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+        .add-to-cart-btn:hover {
+            background-color: white;
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <!-- my navbar code -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">Insight</a>
+        <a class="navbar-brand text-white" href="/">Top Shelf Books</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,32 +159,10 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="all-books">All Books</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="cart">My Bag</a>
-                </li>
-
-                <!--        <li class="nav-item">-->
-                <!--          <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>-->
-                <!--        </li>-->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/login}">Logout</a>
-                </li>
-                <!--        <li class="nav-item" th:if="${!loggedIn}">-->
-                <!--          <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>-->
-                <!--        </li>-->
-                <!--        <li class="nav-item" th:if="${!loggedIn}">-->
-                <!--          <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>-->
-                <!--        </li>-->
-                <!--        <li class="nav-item" th:if="${loggedIn}">-->
-                <!--          <a class="nav-link text-white" href="#">Logout</a>-->
-                <!--        </li>-->
-
-
             </ul>
-            <div>
-                <a class="nav-link text-white" href="cart">My Cart
-                    <img src="">
-                </a>
+            <div class="d-flex">
+                <a class="nav-link text-white" href="cart">My Cart</a>
+                <a class="nav-link text-white me-3" href="/login">Logout</a>
             </div>
         </div>
     </div>
@@ -62,21 +176,17 @@
             <th>Title</th>
             <th>Author</th>
             <th>Price</th>
-            <th></th><!-- Empty column for add to cart button -->
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <!-- Thymeleaf loop to display all books from the database -->
         <tr th:each="book : ${books}">
             <td th:text="${book.title}"></td>
             <td th:text="${book.author}"></td>
             <td th:text="${book.price}"></td>
             <td>
-                <!--                <a th:href="@{/cart/add/{id}(id=${book.id})}" class="btn btn-primary">Add to Cart</a>-->
-                <!--                <button type="button" class="btn btn-primary add-to-cart-btn" data-bookId="${book.id}">Add to Cart</button>-->
                 <button type="button" class="btn btn-primary add-to-cart-btn" th:attr="data-bookId=${book.id}">Add to Cart</button>
-
-            </td><!-- Adjust the link for add to cart operation -->
+            </td>
         </tr>
         </tbody>
     </table>
@@ -86,26 +196,6 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-<!--<script>-->
-<!--    $(document).ready(function() {-->
-<!--        $('.add-to-cart-btn').click(function(e) {-->
-<!--            e.preventDefault();-->
-<!--            var bookId = $(this).data('bookId');-->
-<!--            $.ajax({-->
-<!--                type: 'POST',-->
-<!--                url: 'cart/add-book/' + bookId,-->
-<!--                success: function() {-->
-<!--                    alert('Book added to cart successfully!');-->
-<!--                },-->
-<!--                error: function() {-->
-<!--                    alert('Failed to add book to cart.');-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
-
-
 <script>
     $(document).ready(function() {
         $('.add-to-cart-btn').click(function(e) {
@@ -113,7 +203,7 @@
             var bookId = $(this).data('bookid');
             $.ajax({
                 type: 'POST',
-                url: '/cart/add-book/' + bookId, // added leading slash
+                url: '/cart/add-book/' + bookId,
                 success: function() {
                     alert('Book added to cart successfully!');
                 },
@@ -124,9 +214,5 @@
         });
     });
 </script>
-
-
-
-
 </body>
 </html>
