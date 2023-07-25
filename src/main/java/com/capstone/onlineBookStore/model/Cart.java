@@ -16,11 +16,18 @@ public class Cart {
     private Long id;
 
     // One-to-one relationship with User (assuming each user has only one cart)
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+    // One-to-one relationship with User (assuming each user has only one cart)
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany
+    @JoinTable(
+            name = "cart_books",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books = new ArrayList<>();
 
 }

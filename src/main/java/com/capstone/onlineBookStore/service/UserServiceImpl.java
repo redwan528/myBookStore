@@ -1,7 +1,9 @@
 package com.capstone.onlineBookStore.service;
 
 import com.capstone.onlineBookStore.dto.UserDto;
+import com.capstone.onlineBookStore.model.Cart;
 import com.capstone.onlineBookStore.model.User;
+import com.capstone.onlineBookStore.repository.CartRepository;
 import com.capstone.onlineBookStore.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,24 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final CartRepository cartRepository;
+
+
     public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder, CartRepository cartRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.cartRepository = cartRepository;
+
+    }
+
+    @Override
+    public User registerUser(User user) {
+        user = userRepository.save(user); // Save the user to the database
+        Cart cart = new Cart(); // Create a new cart
+        cart.setUser(user); // Set the user of the cart to the newly registered user
+        cartRepository.save(cart); // Save the cart to the database
+        return user; // Return the saved user
     }
 
 
@@ -33,11 +49,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-//    @Override
-//    public void findUser(UserDto userDto){
-//        User user = new User();
-//        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
-//    }
 
     @Override
     public User findByEmail(String email) {
@@ -49,6 +60,14 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(name);
         return user.getName();
     }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+
+
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();

@@ -32,6 +32,8 @@ public class UserController {
             return "login";
         }
 
+
+
         @GetMapping("register")
         public String showRegistrationForm(Model model){
             UserDto user = new UserDto();

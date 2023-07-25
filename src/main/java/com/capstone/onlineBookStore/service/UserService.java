@@ -18,6 +18,10 @@ public interface UserService {
 
     String findName(String name);
 
+    User registerUser(User user);
+
     List<UserDto> findAllUsers();
+
+    User getUserById(Long userId);
 
 }

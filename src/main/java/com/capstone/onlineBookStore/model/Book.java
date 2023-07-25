@@ -9,9 +9,9 @@ import lombok.*;
 
 @Entity
 @Data
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class Book {
 
     @Id
