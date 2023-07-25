@@ -97,13 +97,21 @@ public ResponseEntity<Void> addBookToCart(@PathVariable Long bookId, Principal p
 
 
     // Method to remove a book from the cart
-    @PostMapping("/cart/remove")
-    public ResponseEntity<?> removeFromCart(@RequestParam Long bookId, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
-        Book book = bookService.getBookById(bookId); // Get the book to remove from the cart
-        cartService.removeBookFromCart(book, currentUser); // Remove the book from the cart (you may need to implement this method in CartService)
+//    @PostMapping("/cart/remove")
+//    public ResponseEntity<?> removeFromCart(@RequestParam Long bookId, HttpSession session) {
+//        User currentUser = (User) session.getAttribute("currentUser");
+//        Book book = bookService.getBookById(bookId); // Get the book to remove from the cart
+//        cartService.removeBookFromCart(book, currentUser); // Remove the book from the cart (you may need to implement this method in CartService)
+//        return new ResponseEntity<>("Book removed from cart!", HttpStatus.OK);
+//    }
+    @PostMapping("/cart/remove/{bookId}")
+    public ResponseEntity<?> removeFromCart(@RequestParam Long bookId, Principal principal) {
+        User currentUser = userService.getUserByPrincipal(principal);
+        Book book = bookService.getBookById(bookId);
+        cartService.removeBookFromCart(book, currentUser);
         return new ResponseEntity<>("Book removed from cart!", HttpStatus.OK);
     }
+
 
     // Add more methods for updating the cart, handling checkout, and other cart-related requests as needed
 }
