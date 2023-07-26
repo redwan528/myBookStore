@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -99,6 +101,32 @@ public double calculateTotal(Long userId) {
     total = Double.valueOf(df.format(total));
     return total;
 }
+
+    @Override
+    public BigDecimal calculateCartPrice(Long userId) {
+        Cart cart = findCartByUserId(userId);
+        List<Book> booksInCart = cart.getBooks();
+        BigDecimal cartPrice = BigDecimal.ZERO;
+
+        // Loop through the books in the cart and sum up their prices
+        for (Book book : booksInCart) {
+            cartPrice = cartPrice.add(BigDecimal.valueOf(book.getPrice()));
+        }
+
+        return cartPrice;
+    }
+
+    @Override
+    public double calculateTotalPrice(User user) {
+        Cart cart = findCartByUserId(user.getId());
+        List<Book> books = cart.getBooks();
+        double totalPrice = 0.0;
+        for (Book book : books) {
+            totalPrice += book.getPrice();
+        }
+        return totalPrice;
+    }
+
 
 
 

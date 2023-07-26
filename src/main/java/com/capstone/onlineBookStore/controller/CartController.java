@@ -16,11 +16,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.math.BigDecimal;
+
+
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class CartController {
@@ -62,7 +63,9 @@ public class CartController {
             cart = cartRepository.save(cart);
         }
 
-        double total = cartService.calculateTotal(user.getId());
+        //double total = cartService.calculateTotal(user.getId());
+        BigDecimal total = cartService.calculateCartPrice(user.getId());
+
         // Add the cart to the model
         model.addAttribute("cart", cart);
         model.addAttribute("totalPrice",total);
@@ -82,40 +85,24 @@ public ResponseEntity<Void> addBookToCart(@PathVariable Long bookId, Principal p
     }
 }
 
-    //@RequestMapping(value = "/cart", method = RequestMethod.GET)
-//    public String getCart(Model model) {
-//        Cart cart = cartService.getCart();  // Assuming getCart() returns a Cart object with a List of Books
-//        model.addAttribute("cart", cart);
-//
-//        double totalPrice = 0;
-//        for (Book book : cart.getBooks()) {
-//            totalPrice += book.getPrice();
-//        }
-//        model.addAttribute("totalPrice", totalPrice);
-//
-//        return "cart";  // Return the name of your Thymeleaf template (assumes "cart.html")
-//    }
-
-
-
-
-
-    // Method to remove a book from the cart
-//    @PostMapping("/cart/remove")
-//    public ResponseEntity<?> removeFromCart(@RequestParam Long bookId, HttpSession session) {
-//        User currentUser = (User) session.getAttribute("currentUser");
-//        Book book = bookService.getBookById(bookId); // Get the book to remove from the cart
-//        cartService.removeBookFromCart(book, currentUser); // Remove the book from the cart (you may need to implement this method in CartService)
-//        return new ResponseEntity<>("Book removed from cart!", HttpStatus.OK);
-//    }
     @PostMapping("/cart/remove/{bookId}")
-    public ResponseEntity<?> removeFromCart(@RequestParam Long bookId, Principal principal) {
+    public ResponseEntity<Map<String, Object>> removeFromCart(@PathVariable Long bookId, Principal principal) {
+        // ... Your existing code ...
         User currentUser = userService.getUserByPrincipal(principal);
         Book book = bookService.getBookById(bookId);
+        // Call the cartService to remove the book from the user's cart.
         cartService.removeBookFromCart(book, currentUser);
-        return new ResponseEntity<>("Book removed from cart!", HttpStatus.OK);
+
+        // Recalculate the total price after removing the book
+        BigDecimal total = cartService.calculateCartPrice(currentUser.getId());
+
+        // Prepare the response data with the updated total price
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("message", "Book removed from cart successfully.");
+        responseData.put("totalPrice", total);
+
+        return ResponseEntity.ok(responseData);
     }
 
 
-    // Add more methods for updating the cart, handling checkout, and other cart-related requests as needed
 }

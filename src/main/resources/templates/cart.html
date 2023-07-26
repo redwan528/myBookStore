@@ -128,9 +128,13 @@
         </tr>
         </tbody>
     </table>
+<!--    <div class="cart-total">-->
+<!--        <p>Total: $<span th:text="${totalPrice}"></span></p>-->
+<!--    </div>-->
     <div class="cart-total">
-        <p>Total: $<span th:text="${totalPrice}"></span></p>
+        <p>Total: $<span id="totalPrice" th:text="${totalPrice}"></span></p>
     </div>
+
 </div>
 <!-- Rest of the cart content goes here -->
 <!-- JavaScript and Bootstrap scripts -->
@@ -139,26 +143,40 @@
         crossorigin="anonymous"></script>
 
 <script>
-$(document).ready(function() {
-    $('.remove-from-cart-btn').click(function(e) {
-        e.preventDefault();
-        var bookId = $(this).data('bookid');
-        var button = $(this); // store the reference to the clicked button
-        $.ajax({
-            type: 'POST',
-            url: '/cart/remove/' + bookId,
-            data: { bookId: bookId },
-            success: function() {
-                alert('Book removed from cart successfully!');
-                button.closest('tr').remove(); // remove the row from the table
-            },
-            error: function() {
-                alert('Failed to remove book from cart.');
-            }
+    $(document).ready(function() {
+        $('.remove-from-cart-btn').click(function(e) {
+            e.preventDefault();
+            var bookId = $(this).data('bookid');
+            var button = $(this); // store the reference to the clicked button
+            $.ajax({
+                type: 'POST',
+                url: '/cart/remove/' + bookId,
+                data: { bookId: bookId },
+                success: function(response) {
+                    alert('Book removed from cart successfully!');
+                    button.closest('tr').remove(); // remove the row from the table
+
+                    // Update the total price on the page
+                    var totalPrice = response.totalPrice;
+                    $('#totalPrice').text( totalPrice.toFixed(2));
+                },
+                error: function() {
+                    alert('Failed to remove book from cart.');
+                }
+            });
         });
     });
-});
 </script>
+
+
+
+
+<!-- ... -->
+
+<!-- ... -->
+
+
+
 
 </body>
 </html>

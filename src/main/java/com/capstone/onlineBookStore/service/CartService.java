@@ -4,6 +4,8 @@ import com.capstone.onlineBookStore.model.Book;
 import com.capstone.onlineBookStore.model.Cart;
 import com.capstone.onlineBookStore.model.User;
 
+import java.math.BigDecimal;
+
 public interface CartService {
 //    Cart getUserCart();
     Cart findCartByUserId(Long currentUserId);
@@ -15,4 +17,9 @@ public interface CartService {
 //    Cart getCart();
 
     double calculateTotal(Long currentUserId);
+
+    BigDecimal calculateCartPrice(Long userId);
+
+     double calculateTotalPrice(User user);
+
 }
