@@ -73,14 +73,15 @@ public void addBookToCart(Book book, User user) {
         cartRepository.save(cart);
     }
 
-//    @Override
-//    public double calculateTotal(Long currentUserId) {
-//        Cart cart = findCartByUserId(currentUserId);
-//        if (cart != null && cart.getBooks() != null) {
-//            return cart.getBooks().stream().mapToDouble(Book::getPrice).sum();
-//        }
-//        return 0.0;
-//    }
+
+    @Override
+    public void removeAllBooksFromCart(User user) {
+        Cart cart = findCartByUserId(user.getId());
+        if (cart != null) {
+            cart.getBooks().clear(); // Remove all books from the cart
+            cartRepository.save(cart); // Save the updated cart in the database
+        }
+    }
 @Override
 public double calculateTotal(Long userId) {
 //    Cart cart = findCartByUserId(userId);
@@ -125,6 +126,15 @@ public double calculateTotal(Long userId) {
             totalPrice += book.getPrice();
         }
         return totalPrice;
+    }
+
+    @Override
+    public List<Book> getAllBooksInCart(Long userId) {
+        Cart cart = findCartByUserId(userId);
+        if (cart != null) {
+            return cart.getBooks();
+        }
+        return new ArrayList<>(); // Return an empty list if the cart is null or has no books
     }
 
 
