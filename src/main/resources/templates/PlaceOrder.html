@@ -40,12 +40,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <style>
         /* Custom CSS for the checkout page */
         body {
             font-family: Arial, sans-serif;
@@ -117,63 +117,63 @@ padding-top: 70px;
 
 <!-- my navbar code -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand text-white" href="/">Top Shelf Books</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="all-books">All Books</a>
-        </li>
-      </ul>
-      <div class="d-flex">
-        <a class="nav-link text-white" href="cart">My Cart</a>
-        <a class="nav-link text-white me-3" href="/login">Logout</a>
-      </div>
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="/">Top Shelf Books</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="all-books">All Books</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a class="nav-link text-white" href="cart">My Cart</a>
+                <a class="nav-link text-white me-3" href="/login">Logout</a>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
 <div class="checkout-container">
-  <h1>Checkout</h1>
+    <h1>Checkout</h1>
 
-  <!-- Display user information and order summary -->
-  <p>Logged in as: <span th:text="${user.name}"></span></p>
-  <p>Order Total: $<span th:text="${totalPrice}"></span></p>
+    <!-- Display user information and order summary -->
+    <p>Logged in as: <span th:text="${user.name}"></span></p>
+    <p>Order Total: $<span th:text="${totalPrice}"></span></p>
 
-  <!-- Display the list of books in the cart -->
-  <h2>Books in Cart</h2>
-  <ul>
-    <li th:each="book : ${cart.books}">
-      <span th:text="${book.title}"></span> - $<span th:text="${book.price}"></span>
-    </li>
-  </ul>
+    <!-- Display the list of books in the cart -->
+    <h2>Books in Cart</h2>
+    <ul>
+        <li th:each="book : ${cart.books}">
+            <span th:text="${book.title}"></span> - $<span th:text="${book.price}"></span>
+        </li>
+    </ul>
 
-  <!-- Add a form to capture shipping address, payment details, etc. -->
-  <form th:action="@{/checkout}" method="post">
-    <!-- Add form fields for shipping address, payment details, etc. -->
-    <!-- For example:
-    <div class="form-group">
-        <label for="shippingAddress">Shipping Address:</label>
-        <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" required>
-    </div>
+    <!-- Add a form to capture shipping address, payment details, etc. -->
+    <form th:action="@{/checkout}" method="post">
+        <!-- Add form fields for shipping address, payment details, etc. -->
+        <!-- For example:
+        <div class="form-group">
+            <label for="shippingAddress">Shipping Address:</label>
+            <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" required>
+        </div>
 
-    <div class="form-group">
-        <label for="paymentMethod">Payment Method:</label>
-        <select class="form-control" id="paymentMethod" name="paymentMethod" required>
-            <option value="Credit Card">Credit Card</option>
-            <option value="PayPal">PayPal</option>
-            <!--Add more payment options as needed -->
-    <!-- </select>
-</div> -->
+        <div class="form-group">
+            <label for="paymentMethod">Payment Method:</label>
+            <select class="form-control" id="paymentMethod" name="paymentMethod" required>
+                <option value="Credit Card">Credit Card</option>
+                <option value="PayPal">PayPal</option>
+                <!--Add more payment options as needed -->
+        <!-- </select>
+    </div> -->
 
-    <button type="submit" class="btn btn-primary">Place Order</button>
-  </form>
+        <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
 </div>
 
 <!-- Bootstrap JS -->

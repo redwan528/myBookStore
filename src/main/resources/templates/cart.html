@@ -75,7 +75,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand text-white" href="/">Top Shelf Books</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -133,6 +133,7 @@
 <!--    </div>-->
     <div class="cart-total">
         <p>Total: $<span id="totalPrice" th:text="${totalPrice}"></span></p>
+        <a href="/checkout" class="btn btn-primary btn-lg rounded-pill mt-3">Checkout</a>
     </div>
 
 </div>
