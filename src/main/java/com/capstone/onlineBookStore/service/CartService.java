@@ -13,7 +13,6 @@ public interface CartService {
 
     void addBookToCart(Book book, User user);
     void removeBookFromCart(Book book, User user);
-    // Add more methods for cart-related operations if needed
 
 //    Cart getCart();
  void removeAllBooksFromCart(User user);
@@ -24,5 +23,9 @@ public interface CartService {
      double calculateTotalPrice(User user);
 
     List<Book> getAllBooksInCart(Long userId);
+
+    Cart saveCart(Cart cart);
+
+    void deleteCartById(Long cartId);
 
 }

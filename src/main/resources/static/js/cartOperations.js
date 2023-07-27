@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.add-to-cart-btn').click(function(e) {
-        e.preventDefault();  // Prevent the default click behavior
+        e.preventDefault();
         var bookId = $(this).data('bookId');
         $.ajax({
             type: 'POST',

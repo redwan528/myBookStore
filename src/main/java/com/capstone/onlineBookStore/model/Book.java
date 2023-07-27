@@ -32,6 +32,5 @@ public class Book {
     }
 
 
-//    public Book(String s, String s1, double v) {
-//    }
+
 }

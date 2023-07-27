@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
-    // Custom query to get the user's cart by the user's ID
-//    Cart findByUserUsername(String username);
+
     Cart findByUser(User user);
 
 }

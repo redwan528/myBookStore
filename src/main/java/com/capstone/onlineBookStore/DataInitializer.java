@@ -31,12 +31,5 @@ public class DataInitializer implements CommandLineRunner {
             bookService.saveBook(book);
         }
 
-//        Book book1 = new Book("Harry Potter and the Half Blood Prince", "JK Rowling", 19.99);
-//        Book book2 = new Book("Man's Search for Meaning", "Viktor Frankl", 24.99);
-//        Book book3 = new Book("Laws of Power", "Robert Greene", 14.99);
-
-//        bookService.saveBook(book1);
-//        bookService.saveBook(book2);
-//        bookService.saveBook(book3);
     }
 }

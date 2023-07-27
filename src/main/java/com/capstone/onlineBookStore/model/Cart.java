@@ -53,7 +53,6 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // One-to-one relationship with User (assuming each user has only one cart)
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

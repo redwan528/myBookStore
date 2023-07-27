@@ -23,10 +23,9 @@ public class CartServiceImpl implements CartService {
 
 //private Cart cart;
     private final CartRepository cartRepository;
-    private final UserRepository userRepository; // Add UserRepository
-
+    private final UserRepository userRepository;
     private final BookRepository bookRepository;
-    private final PlatformTransactionManager transactionManager; // Inject PlatformTransactionManager
+    private final PlatformTransactionManager transactionManager;
 
 
     @Autowired
@@ -52,9 +51,8 @@ public class CartServiceImpl implements CartService {
 public void addBookToCart(Book book, User user) {
     Cart cart = findCartByUserId(user.getId());
     if (cart == null) {
-        // Handle the situation where no cart is found.
-        // This could involve creating a new cart, logging an error, etc.
-        cart = new Cart(); // create a new Cart or handle it as per your requirement.
+
+        cart = new Cart();
         cart.setUser(user);
     }
     if (cart.getBooks() == null) {
@@ -78,19 +76,13 @@ public void addBookToCart(Book book, User user) {
     public void removeAllBooksFromCart(User user) {
         Cart cart = findCartByUserId(user.getId());
         if (cart != null) {
-            cart.getBooks().clear(); // Remove all books from the cart
-            cartRepository.save(cart); // Save the updated cart in the database
+            cart.getBooks().clear();
+            cartRepository.save(cart);
         }
     }
 @Override
 public double calculateTotal(Long userId) {
-//    Cart cart = findCartByUserId(userId);
-//    if (cart != null && cart.getBooks() != null) {
-//        return cart.getBooks().stream()
-//                .mapToDouble(Book::getPrice)
-//                .sum();
-//    }
-//    return 0;
+
     Cart cart = findCartByUserId(userId);
     double total = 0.0;
     if (cart != null && cart.getBooks() != null) {
@@ -135,6 +127,16 @@ public double calculateTotal(Long userId) {
             return cart.getBooks();
         }
         return new ArrayList<>(); // Return an empty list if the cart is null or has no books
+    }
+
+    @Override
+    public Cart saveCart(Cart cart) {
+        return cartRepository.save(cart);
+    }
+
+    @Override
+    public void deleteCartById(Long cartId) {
+        cartRepository.deleteById(cartId);
     }
 
 

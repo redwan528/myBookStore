@@ -1,6 +1,7 @@
 
 package com.capstone.onlineBookStore.controller;
 
+import com.capstone.onlineBookStore.dto.CheckoutForm;
 import com.capstone.onlineBookStore.model.Cart;
 //import com.capstone.onlineBookStore.model.Order;
 import com.capstone.onlineBookStore.model.Checkout;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.math.BigDecimal;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,6 +76,28 @@ public class CheckoutController {
         return "checkout_confirmed"; // Return the Thymeleaf template for the checkout success page
     }
 
+//    @PostMapping("/checkout/confirm")
+//    public String processCheckoutConfirm(@RequestParam String cardNumber,
+//                                         @RequestParam String address,
+//                                         @RequestParam String zipCode,
+//                                         Principal principal) {
+//        // Get the authenticated user
+//        User user = userService.getUserByPrincipal(principal);
+//
+//        // Remove all books from the user's cart
+//        cartService.removeAllBooksFromCart(user);
+//
+//        // Reset the cart by creating a new empty cart for the user
+//        Cart newCart = new Cart();
+//        newCart.setUser(user);
+//        newCart.setBooks(new ArrayList<>());
+//        cartService.saveCart(newCart);
+//
+//
+//
+//        return "redirect:/checkout/success";
+//    }
+
     @PostMapping("/checkout/confirm")
     public String processCheckoutConfirm(@RequestParam String cardNumber,
                                          @RequestParam String address,
@@ -81,45 +106,66 @@ public class CheckoutController {
         // Get the authenticated user
         User user = userService.getUserByPrincipal(principal);
 
-        // Remove all books from the user's cart
-        cartService.removeAllBooksFromCart(user);
+        // Check if the user already has an existing cart
+        Cart userCart = cartService.findCartByUserId(user.getId());
 
-        // Create the order and save it to the database
-       // orderService.createOrder(user, cardNumber, address, zipCode);
+        if (userCart == null) {
+            // If the user does not have an existing cart, create a new cart
+            userCart = new Cart();
+            userCart.setUser(user);
 
-        // Redirect to the checkout success page
+            // Save the new cart to the database
+            cartService.saveCart(userCart);
+        }
+
+        // Continue with the rest of the checkout process
+        // ...
+
+        // Delete the cart after the checkout is complete
+        cartService.deleteCartById(userCart.getId());
+
         return "redirect:/checkout/success";
     }
 
-
-//    @PostMapping("/checkout/success")
-//    public String confirmOrder(@ModelAttribute("checkout") Checkout checkout, Model model) {
-//        // Here, you would process the data submitted from the form and save it to the database.
+//    @PostMapping("/checkout/confirm")
+//    public String handleCheckout(@ModelAttribute CheckoutForm form, Model model, Principal principal) {
+//        // Process the checkout form
+//        // ...
 //
-//        // Assuming you have the total amount available in the cart, you can retrieve it
-//// Recalculate the total price after removing the book
-//        User currentUser = userService.getUserByPrincipal(principal);
-//        BigDecimal total = cartService.calculateCartPrice(currentUser.getId());
-//        // Create a new Checkout object and set its properties
+//        // Get the authenticated user
+//        User user = userService.getUserByPrincipal(principal);
+//
+//        Cart userCart = cartService.findCartByUserId(user.getId());
+//
+//        // Calculate the total price
+//        BigDecimal totalPrice = cartService.calculateCartPrice(user.getId());
+//
+//        // Create the Checkout entity and set the cart_id
 //        Checkout checkout = new Checkout();
-//        checkout.setUser(userService.findByEmail(currentUser.getEmail())); // Set the User associated with this checkout (you need to fetch the user based on their ID or email)
-////        checkout.setBooks(...); // Set the list of books in the checkout
-//        checkout.setOrderTotal(totalAmount); // Set the total amount from the cart
-//        checkout.setCardNumber(checkout.getCardNumber()); // Set the card number from the form
-//        checkout.setShippingAddress(checkout.getAddress()); // Set the shipping address from the form
-//        checkout.setZipCode(checkout.getZipCode()); // Set the zip code from the form
+//        checkout.setUser(user);
+//        checkout.setCart(userCart); // Set the cart associated with the checkout
+//        checkout.setCreatedAt(LocalDateTime.now());
+//        checkout.setOrderTotal(totalPrice);
+//        checkout.setShippingAddress(form.getAddress());
+//        checkout.setZipCode(form.getZipCode());
 //
-//        // Save the Checkout object to the database (using your JPA repository)
-//        checkoutRepository.save(checkout);
+//        // Save the order to the database
+//        checkout = checkoutService.createOrder(checkout);
 //
-//        // Populate the model attributes with the data to be displayed on the confirmation page
-//        model.addAttribute("totalAmount", totalAmount);
-//        model.addAttribute("cardNumber", orderForm.getCardNumber());
-//        model.addAttribute("address", orderForm.getAddress());
-//        model.addAttribute("zipCode", orderForm.getZipCode());
+//        // Remove all books from the user's cart
+//        cartService.removeAllBooksFromCart(user);
 //
-//        // Return the name of the confirmation page template (HTML file)
-//        return "order-confirmation";
+//        Long checkoutId = checkout.getId();
+//
+//        // Reset the cart by creating a new empty cart for the user
+//        Cart newCart = new Cart();
+//        newCart.setUser(user);
+//        newCart.setBooks(new ArrayList<>());
+//        cartService.saveCart(newCart);
+//
+//        return "checkout_confirmed";
 //    }
+
+
 
 }

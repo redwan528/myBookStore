@@ -8,6 +8,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+//@Service
+//public class CheckoutServiceImpl implements CheckoutService {
+//
+//    private final CheckoutRepository checkoutRepository;
+//
+//    @Autowired
+//    public CheckoutServiceImpl(CheckoutRepository checkoutRepository) {
+//        this.checkoutRepository = checkoutRepository;
+//    }
+//
+//
+//}
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
 
@@ -18,14 +30,12 @@ public class CheckoutServiceImpl implements CheckoutService {
         this.checkoutRepository = checkoutRepository;
     }
 
-//    @Override
-//    public Checkout createCheckout(User user) {
-////        Checkout checkout = new Checkout();
-////        checkout.setUser(user);
-////        // You can add more logic here to set other properties of the checkout (e.g., order total, books, etc.)
-////        return checkoutRepository.save(checkout);
-//
-//    }
+    @Override
+    public Checkout createOrder(Checkout checkout) {
+        // Implement the logic to save the checkout entity here
+        return checkoutRepository.save(checkout);
+    }
 
-    // Add more service methods for checkout-related operations as needed
+
 }
+
