@@ -1,51 +1,38 @@
-//package com.capstone.onlineBookStore;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.Mockito.when;
-//
-//import com.capstone.onlineBookStore.model.User;
-//import com.capstone.onlineBookStore.repository.UserRepository;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.springframework.test.context.junit.jupiter.SpringExtension;
-//
-//@ExtendWith(SpringExtension.class)
-//@ExtendWith(MockitoExtension.class)
-//public class UserRepositoryTest {
-//
-//    @InjectMocks
-//    private UserRepository userRepository; // This will be automatically injected with the mocked instance.
-//
-//    @Mock
-//    private User userMock;
-//
-//    @Test
-//    public void testFindByEmail() {
-//        // Arrange
-//        String email = "test@example.com";
-//        when(userRepository.findByEmail(email)).thenReturn(userMock);
-//
-//        // Act
-//        User foundUser = userRepository.findByEmail(email);
-//
-//        // Assert
-//        assertEquals(userMock, foundUser);
-//    }
-//
-//    @Test
-//    public void testFindByEmail_NonExistingEmail_ReturnsNull() {
-//        // Arrange
-//        String email = "nonexistent@example.com";
-//        when(userRepository.findByEmail(email)).thenReturn(null);
-//
-//        // Act
-//        User foundUser = userRepository.findByEmail(email);
-//
-//        // Assert
-//        assertEquals(null, foundUser);
-//    }
-//}
+package com.capstone.onlineBookStore;
+import com.capstone.onlineBookStore.model.User;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.capstone.onlineBookStore.repository.UserRepository;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@DataJpaTest
+public class UserRepositoryTest {
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Test
+    public void testFindByEmail() {
+        //given
+        User user = new User();
+        user.setName("Test User");
+        user.setEmail("test.user@test.com");
+        user.setPassword("test1234");
+
+        entityManager.persist(user);
+        entityManager.flush();
+
+        //when
+        User found = userRepository.findByEmail(user.getEmail());
+
+        //then
+        assertThat(found.getEmail())
+                .isEqualTo(user.getEmail());
+    }
+}

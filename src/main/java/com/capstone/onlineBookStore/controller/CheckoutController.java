@@ -121,6 +121,8 @@ public class CheckoutController {
         // Continue with the rest of the checkout process
         // ...
 
+        cartService.removeAllBooksFromCart(user);
+
         // Delete the cart after the checkout is complete
         cartService.deleteCartById(userCart.getId());
 
