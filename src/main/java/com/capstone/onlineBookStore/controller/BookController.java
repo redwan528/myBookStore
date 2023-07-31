@@ -39,10 +39,6 @@ public class BookController {
         return "bookDetails"; // bookDetails.html is the Thymeleaf template to display book details
     }
 
-//    @GetMapping("/")
-//    public String showHomePage() {
-//        return "homepage"; // Return the name of the Thymeleaf template for the homepage
-//    }
 
     @GetMapping("/add-to-cart/{id}")
     public String addToCart(@PathVariable Long id) {
@@ -67,5 +63,4 @@ public class BookController {
 
 
 
-    // Add more methods for handling book-related requests (e.g., add, update, delete)
 }

@@ -25,15 +25,15 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
-    private final PlatformTransactionManager transactionManager;
+//    private final PlatformTransactionManager transactionManager;
 
 
     @Autowired
-    public CartServiceImpl(CartRepository cartRepository, UserRepository userRepository, BookRepository bookRepository, PlatformTransactionManager transactionManager) {
+    public CartServiceImpl(CartRepository cartRepository, UserRepository userRepository, BookRepository bookRepository)/*PlatformTransactionManager transactionManager*/ {
         this.cartRepository = cartRepository;
         this.userRepository = userRepository;
         this.bookRepository = bookRepository;
-        this.transactionManager = transactionManager; // Assign the injected PlatformTransactionManager
+//        this.transactionManager = transactionManager; // Assign the injected PlatformTransactionManager
 
     }
 
